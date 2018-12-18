@@ -75,6 +75,7 @@ iframe {
 .header {
     display: flex;
     border-bottom: 0.8px solid rgba(139, 139, 139, 0.05);
+    padding: 1px !important;
 
     p {
         width: 33.33%;

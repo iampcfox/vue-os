@@ -179,7 +179,7 @@ export default {
   border-radius: 8px;
   left: 50%;
   transform: translateX(-50%);
-  transition: .3s;
+  transition: width .5s;
 }
 
 .bottom .img img {
@@ -220,19 +220,6 @@ export default {
 .full {
   top: 0px !important;
   left: 0px !important;
-}
-
-.el-tooltip{
-  padding-left: 10px !important;
-  padding-right: 10px !important;
-}
-
-.is-light{
-  border: none !important;
-}
-
-.el-tooltip__popper{
-  padding: 4px 8px !important;
 }
 
 </style>

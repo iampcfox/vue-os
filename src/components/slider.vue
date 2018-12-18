@@ -1,5 +1,5 @@
 <template>
-  <div class="slider">
+  <div class="slider" :style="{right: isShowSlider ? 0+'px' : -260+'px'}">
     <div class="slider-header">
       <p class="selected">今天</p>
       <p>其他</p>
@@ -10,7 +10,12 @@
 <script>
 export default {
   name: "slider",
-  props: {},
+  props: {
+    isShowSlider: {
+      type:Boolean,
+      default: false
+    }
+  },
   mounted() {},
   methods: {}
 };
@@ -37,14 +42,15 @@ $slider-left-border: rgba(173, 175, 178, 1);
   width: $slider-width;
   background-color: $slider-bg-color;
   top: 22px;
-  right: 0;
+  // right: -260px;
   border-left: 0.7px solid $slider-left-border;
   box-shadow: -5px 0px 10px -5px rgba(99, 99, 99, 0.6);
+  transition: .3s;
 }
 
 .slider-header {
   display: flex;
-  padding: 4px 20px;
+  padding: 10px 20px;
   border-bottom: 1px solid rgba(191, 191, 191, 1);
 
   p {
