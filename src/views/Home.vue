@@ -1,33 +1,9 @@
 <template>
   <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <img class="pcbg" src="../static/img/bg6.jpg" alt="">
     <div class="desktop">
-      <Window 
-      v-for="item in windowItems" 
-      :keys="item.id"
-      :title="item.name"
-      :navColor="item.navColor"
-      :titleColor="item.titleColor"
-      :type="item.type"
-      :w="item.width"
-      :h="item.height"
-      :src="item.src"
-      :minw="item.minWidth"
-      :minh="item.minHeight"
-      :resizable="item.resizable"
-      >
-        <div slot="content">
-          <Computer
-          :width="item.width"
-          :height="item.height"
-          ></Computer>
-          
-        </div>
-      </Window>
+      <Desktop></Desktop>
     </div>
-    
   </div>
 </template>
 
@@ -35,12 +11,14 @@
 // @ is an alias to /src
 import Window from "@/components/window";
 import Computer from "@/components/computer";
+import Desktop from "@/components/Desktop";
 
 export default {
   name: "home",
   components: {
     Window,
-    Computer
+    Computer,
+    Desktop
   },
   data() {
     return {
@@ -80,6 +58,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.home{
+  overflow:hidden;
+}
+
 .pcbg {
   background-size: 100% 100%;
   width: 100%;
@@ -88,9 +71,9 @@ export default {
 }
 
 .desktop {
-  width: 100%;
-  height: calc(99vh - 22px);
-  position: relative;
+  // width: 100%;
+  // height: calc(99vh - 22px);
+  // position: relative;
 }
 </style>
 
