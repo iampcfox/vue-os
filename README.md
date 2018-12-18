@@ -1,4 +1,4 @@
-# os-index
+# vue-os
 
 ## Project setup
 ```
