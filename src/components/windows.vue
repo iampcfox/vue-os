@@ -1,18 +1,19 @@
 <template>
     <div class="window">
         <hsc-window-style-metal>
-            <hsc-window :resizable="true" :key="index" :ref="'window_' + item.id" :class="{full: item.full}" :style="{'height': item.full ? (fullHeight + 'px') : '500px', 'width': item.full ? '100%' : '800px', 'z-index': item.full ? 9999 : 100 - item.index}" @mousedown.native="move(item, index)" :closeButton="false" :isOpen="item.isOpen">
+            <hsc-window :resizable="item.resizable" :key="index" :ref="'window_' + item.id" :class="{full: item.full}" :style="{'height': item.full ? (fullHeight + 'px') : item.height+'px', 'width': item.full ? '100%' : item.width+'px', 'z-index': item.full ? 9999 : 100 - item.index}" @mousedown.native="move(item, index)" :closeButton="false" :isOpen="item.isOpen">
                 <div class="header" :style="{backgroundColor: item.theme === 'black' ? '#1E1E1E' : '#FBFCFB'}" slot="title">
                     <p class="f-button">
                         <span class="close"><i class="iconfont icon-cuowu" @click="closeWin(item)"></i></span>
-                        <span class="min"><i class="iconfont icon-min" @click="item.isOpen = false"></i></span>
-                        <span class="max"><i class="iconfont icon-xiangshang" @click="item.full = !item.full"></i></span>
+                        <span v-if="item.resizable === true" class="min"><i class="iconfont icon-min" @click="openItem(item)"></i></span>
+                        <span  v-if="item.resizable === true" class="max"><i class="iconfont icon-xiangshang" @click="fullItem(item)"></i></span>
                     </p>
                     <p class="title-text" :style="{color: item.theme === 'black' ? '#FBFCFB' : '#1E1E1E'}"><span>{{item.title}}</span></p>
                     <p></p>
                 </div>
                 <div style="width: 100%; height: 100%;" :style="{backgroundColor: item.theme === 'black' ? '#1E1E1E' : '#FBFCFB'}">
-                    <iframe src="http://www.polaxiong.com/editor" style="width: 100%; height: 100%;"></iframe>
+                    <iframe v-if="item.type === 'iframe'" :src="item.url" style="width: 100%; height: 100%;overflow:hidden;"></iframe>
+                    <slot v-if="item.type === 'native'"></slot>
                 </div>
             </hsc-window>
         </hsc-window-style-metal>
@@ -22,7 +23,7 @@
 export default {
     data() {
         return {
-            fullHeight: document.querySelectorAll('.desktop')[0].clientHeight,
+            fullHeight: document.querySelectorAll('.home')[0].clientHeight,
         };
     },
     props: {
@@ -41,6 +42,14 @@ export default {
         },
         move(item, index) {
             this.$emit('move', item, index)
+        },
+        openItem(item){
+          item.isOpen = false
+          this.$emit('minWin', item)
+        },
+        fullItem(item){
+          item.full = !item.full
+          this.$emit('maxWin', item)
         }
     }
 };
@@ -53,6 +62,10 @@ $window-border-color: rgba(89, 94, 91, 1);
 
 p {
     margin: 0;
+}
+
+iframe html{
+  overflow: hidden;
 }
 
 iframe {
@@ -70,6 +83,7 @@ iframe {
     box-shadow: 0px 3px 25px rgba(99, 99, 99, 0.6) !important;
     overflow: hidden !important;
     // position: absolute;
+    // z-index: 2 !important;
 }
 
 .header {
@@ -150,8 +164,6 @@ iframe {
         }
     }
 }
-
-
 
 .content {
     width: 100%;

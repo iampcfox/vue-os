@@ -10,14 +10,12 @@
 <script>
 // @ is an alias to /src
 import Window from "@/components/window";
-import Computer from "@/components/computer";
 import Desktop from "@/components/Desktop";
 
 export default {
   name: "home",
   components: {
     Window,
-    Computer,
     Desktop
   },
   data() {

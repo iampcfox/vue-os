@@ -1,5 +1,5 @@
 <template>
-  <div class="slider" :style="{right: isShowSlider ? 0+'px' : -260+'px'}">
+  <div class="slider" :style="{right: isShowSlider ? 0+'px' : -262+'px'}">
     <div class="slider-header">
       <p class="selected">今天</p>
       <p>其他</p>

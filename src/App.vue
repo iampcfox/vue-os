@@ -9,15 +9,19 @@
     onselect="document.selection.empty()"
   >
     <div id="nav">
-      <img class="logo" src="../src/static/img/newlogo_5.png" alt>
-      <span class="title">像素小站</span>
-      <hsc-menu-style-metal style="margin-left: 8px;z-index: 2;">
+      <img class="logo" src="../src/static/img/newlogo_5.png" @click="clickToAbout">
+      <!-- <span class="title">像素小站</span> -->
+      <hsc-menu-style-metal style="margin-left: 0px;z-index: 2;">
         <hsc-menu-bar>
-          <hsc-menu-bar-item label="Number">
-            <hsc-menu-item label="New Random Number" keybind="alt+n" @click="newRandomNumber"/>
-            <hsc-menu-item label="Clear" keybind="alt+k" @click="numberWindows=[]"/>
+          <hsc-menu-bar-item label="像素小站">
+            <hsc-menu-item label="New Random Number" keybind="alt+n" @click=""/>
+            <hsc-menu-item label="Clear" keybind="alt+k" @click=""/>
           </hsc-menu-bar-item>
-          <hsc-menu-bar-item label="Windows">
+          <hsc-menu-bar-item label="选项1">
+            <hsc-menu-item label="New Random Number" keybind="alt+n" @click=""/>
+            <hsc-menu-item label="Clear" keybind="alt+k" @click=""/>
+          </hsc-menu-bar-item>
+          <hsc-menu-bar-item label="选项2">
             <hsc-menu-item
               v-for="w in numberWindows"
               :key="w.id"
@@ -53,10 +57,14 @@
     </div>
     <Slider :isShowSlider="isShowSlider"/>
     <router-view/>
+
+
   </div>
 </template>
 <script>
 import Slider from "./components/slider";
+import {mapState, mapMutations} from "vuex";
+import {CLICK_TOOPENWIN} from "@/store/mutations-type.js"
 
 export default {
   name: "app",
@@ -80,11 +88,14 @@ export default {
     numberWindows() {}
   },
   methods: {
+    ...mapMutations([CLICK_TOOPENWIN]),
     showSlider() {
       this.isShowSlider = !this.isShowSlider;
     },
-    newRandomNumber() {
-      this.numberWindows.push(new NumberWindow());
+    clickToAbout() {
+      this[CLICK_TOOPENWIN]({
+
+      });
     },
 
     getWeek(date) {
@@ -277,6 +288,7 @@ $font-1: "微软雅黑";
   line-height: 22.78px;
   padding: 0 10px !important;
 }
+
 
 .el-tooltip {
   padding-left: 10px !important;
