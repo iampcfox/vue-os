@@ -6,16 +6,36 @@ import {
 } from './mutations-type'
 
 export default {
-    [OPEN_WIN](state, v) {
-
+    // 放大缩小
+    [OPEN_WIN](state, obj) {
+        if (obj.isOpen) {
+            obj.isOpen = false
+            return
+        }
+        state.windows.filter(w => w.index <= obj.index).map(w => {
+            if (w.id === obj.id) {
+                w.index = 0
+                w.isOpen = true
+            } else {
+                w.index = w.index + 1
+            }
+        })
     },
-    [CLOSE_WIN](state, v) {
-
+    // 关闭窗口
+    [CLOSE_WIN](state, obj) {
+        state.windows.splice(state.windows.findIndex(item => item.id === obj.id), 1)
     },
-    [MOVE_WIN](state, v) {
-
+    // 移动窗口调整
+    [MOVE_WIN](state, {obj, index}) {
+        state.windows.filter(w => w.index <= obj.index).map(w => {
+            if (w.id === obj.id) {
+                w.index = 0
+            } else {
+                w.index = w.index + 1
+            }
+        })
     },
-    [CLICK_TOOPENWIN](state, {items, index}) {
+    [CLICK_TOOPENWIN](state, { items, index }) {
         let value = items.find(v => v.index === index)
         // console.log(value)
         let item = state.windows.find(f => f.id === value.item.id)
@@ -36,6 +56,6 @@ export default {
             }
             state.windows.push(item)
         }
-        // this.openWin(item)
+        this.commit(OPEN_WIN, item)
     },
 }

@@ -62,31 +62,13 @@ export default {
     methods: {
         ...mapMutations([OPEN_WIN, CLOSE_WIN, MOVE_WIN, CLICK_TOOPENWIN]),
         closeWin(obj) {
-            this.windows.splice(this.windows.findIndex(item => item.id === obj.id), 1)
+            this[CLOSE_WIN](obj)
         },
         openWin(obj) {
-            if (obj.isOpen) {
-                obj.isOpen = false
-                return
-            }
-            this.windows.filter(w => w.index <= obj.index).map(w => {
-                if (w.id === obj.id) {
-                    w.index = 0
-                    w.isOpen = true
-                } else {
-                    w.index = w.index + 1
-                }
-            })
+            this[OPEN_WIN](obj)
         },
         move(obj, index) {
-            // 排序
-            this.windows.filter(w => w.index <= obj.index).map(w => {
-                if (w.id === obj.id) {
-                    w.index = 0
-                } else {
-                    w.index = w.index + 1
-                }
-            })
+            this[OPEN_WIN]({ obj, index })
         },
         toggleMenu() {
             this.msgIsOpen = !this.msgIsOpen
@@ -95,28 +77,7 @@ export default {
             this.fullHeight = document.documentElement.clientHeight
         },
         click({ items, index }) {
-          this[CLICK_TOOPENWIN]({ items, index })
-            // let value = items.find(v => v.index === index)
-            // // console.log(value)
-            // let item = this.windows.find(f => f.id === value.item.id)
-            // if (!item) {
-            //     item = {
-            //         id: value.item.id,
-            //         title: value.item.text,
-            //         index: 0,
-            //         isOpen: false,
-            //         full: false,
-            //         type: value.item.type,
-            //         resizable: value.item.resizable,
-            //         width: value.item.width,
-            //         height: value.item.height,
-            //         src: value.item.src,
-            //         theme: value.item.theme,
-            //         url: value.item.url || ''
-            //     }
-            //     this.windows.push(item)
-            // }
-            // this.openWin(item)
+            this[CLICK_TOOPENWIN]({ items, index })
         },
         change(event) {
             console.log('change', event)

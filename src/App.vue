@@ -94,10 +94,9 @@ export default {
     },
     clickToAbout() {
       this[CLICK_TOOPENWIN]({
-
+        
       });
     },
-
     getWeek(date) {
       var a = ["日", "一", "二", "三", "四", "五", "六"];
       var W = "周" + a[date.getDay()];
